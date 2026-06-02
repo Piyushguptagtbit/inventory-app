@@ -7,11 +7,11 @@ from database import Base
 class Product(Base):
     __tablename__ = "products"
     id = Column(Integer, primary_key=True, index=True)
-    name = Column("name", String(200), nullable=False)
-    sku = Column("sku", String(100), unique=True, nullable=False)
-    description = Column("description", String(500), default="")
-    price = Column("price", Float, nullable=False)
-    stock = Column("stock", Integer, default=0)
+    item_name = Column(String(200), nullable=False)
+    sku = Column(String(100), unique=True, nullable=False)
+    description = Column(String(500), default="")
+    price = Column(Float, nullable=False)
+    stock = Column(Integer, default=0)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     order_items = relationship("OrderItem", back_populates="product")
 
@@ -19,10 +19,10 @@ class Product(Base):
 class Customer(Base):
     __tablename__ = "customers"
     id = Column(Integer, primary_key=True, index=True)
-    name = Column("name", String(200), nullable=False)
-    email = Column("email", String(200), unique=True, nullable=False)
-    phone = Column("phone", String(50), default="")
-    address = Column("address", String(500), default="")
+    customer_name = Column(String(200), nullable=False)
+    email = Column(String(200), unique=True, nullable=False)
+    phone = Column(String(50), default="")
+    address = Column(String(500), default="")
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     orders = relationship("Order", back_populates="customer")
 
@@ -31,8 +31,8 @@ class Order(Base):
     __tablename__ = "orders"
     id = Column(Integer, primary_key=True, index=True)
     customer_id = Column(Integer, ForeignKey("customers.id"), nullable=False)
-    status = Column("status", String(50), default="pending")
-    total_amount = Column("total_amount", Float, default=0.0)
+    status = Column(String(50), default="pending")
+    total_amount = Column(Float, default=0.0)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     customer = relationship("Customer", back_populates="orders")
     items = relationship("OrderItem", back_populates="order", cascade="all, delete-orphan")
@@ -43,7 +43,7 @@ class OrderItem(Base):
     id = Column(Integer, primary_key=True, index=True)
     order_id = Column(Integer, ForeignKey("orders.id"), nullable=False)
     product_id = Column(Integer, ForeignKey("products.id"), nullable=False)
-    quantity = Column("quantity", Integer, nullable=False)
-    unit_price = Column("unit_price", Float, nullable=False)
+    quantity = Column(Integer, nullable=False)
+    unit_price = Column(Float, nullable=False)
     order = relationship("Order", back_populates="items")
     product = relationship("Product", back_populates="order_items")

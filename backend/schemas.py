@@ -3,54 +3,77 @@ from typing import List, Optional
 from datetime import datetime
 
 
-class ProductBase(BaseModel):
-    sku: str
-    description: Optional[str]
-    price: float
-    stock: int
+class ProductCreate(BaseModel):
+    item_name: str = ""
+    sku: str = ""
+    description: str = ""
+    price: float = 0.0
+    stock: int = 0
 
-class ProductCreate(ProductBase):
-    pass
-
-class Product(ProductBase):
-    id: int
-    name: str
-    created_at: datetime
     class Config:
         orm_mode = True
 
 
-class CustomerBase(BaseModel):
-    email: str
-    phone: Optional[str]
-    address: Optional[str]
-
-class CustomerCreate(CustomerBase):
-    pass
-
-class Customer(CustomerBase):
+class Product(BaseModel):
     id: int
-    name: str
+    item_name: str
+    sku: str
+    description: str
+    price: float
+    stock: int
     created_at: datetime
+
+    class Config:
+        orm_mode = True
+
+
+class CustomerCreate(BaseModel):
+    customer_name: str = ""
+    email: str = ""
+    phone: str = ""
+    address: str = ""
+
+    class Config:
+        orm_mode = True
+
+
+class Customer(BaseModel):
+    id: int
+    customer_name: str
+    email: str
+    phone: str
+    address: str
+    created_at: datetime
+
     class Config:
         orm_mode = True
 
 
 class OrderItemCreate(BaseModel):
-    product_id: int
-    quantity: int
+    product_id: int = 0
+    quantity: int = 1
+
+    class Config:
+        orm_mode = True
+
 
 class OrderItem(BaseModel):
     id: int
     product_id: int
     quantity: int
     unit_price: float
+
     class Config:
         orm_mode = True
 
+
 class OrderCreate(BaseModel):
-    customer_id: int
-    items: List[OrderItemCreate]
+    customer_id: int = 0
+    items: List[OrderItemCreate] = []
+
+    class Config:
+        orm_mode = True
+
 
 class Order(BaseModel):
     id: int
@@ -59,5 +82,6 @@ class Order(BaseModel):
     total_amount: float
     created_at: datetime
     items: List[OrderItem] = []
+
     class Config:
         orm_mode = True

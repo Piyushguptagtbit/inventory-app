@@ -12,20 +12,17 @@ def get_product(db: Session, product_id: int):
 def get_product_by_sku(db: Session, sku: str):
     return db.query(models.Product).filter(models.Product.sku == sku).first()
 
-def create_product(db: Session, name: str, product: schemas.ProductCreate):
-    data = product.dict()
-    data["name"] = name
-    db_obj = models.Product(**data)
+def create_product(db: Session, product: schemas.ProductCreate):
+    db_obj = models.Product(**product.dict())
     db.add(db_obj)
     db.commit()
     db.refresh(db_obj)
     return db_obj
 
-def update_product(db: Session, product_id: int, name: str, product: schemas.ProductCreate):
+def update_product(db: Session, product_id: int, product: schemas.ProductCreate):
     db_obj = get_product(db, product_id)
     for k, v in product.dict().items():
         setattr(db_obj, k, v)
-    db_obj.name = name
     db.commit()
     db.refresh(db_obj)
     return db_obj
@@ -44,20 +41,17 @@ def get_customer(db: Session, customer_id: int):
 def get_customer_by_email(db: Session, email: str):
     return db.query(models.Customer).filter(models.Customer.email == email).first()
 
-def create_customer(db: Session, name: str, customer: schemas.CustomerCreate):
-    data = customer.dict()
-    data["name"] = name
-    db_obj = models.Customer(**data)
+def create_customer(db: Session, customer: schemas.CustomerCreate):
+    db_obj = models.Customer(**customer.dict())
     db.add(db_obj)
     db.commit()
     db.refresh(db_obj)
     return db_obj
 
-def update_customer(db: Session, customer_id: int, name: str, customer: schemas.CustomerCreate):
+def update_customer(db: Session, customer_id: int, customer: schemas.CustomerCreate):
     db_obj = get_customer(db, customer_id)
     for k, v in customer.dict().items():
         setattr(db_obj, k, v)
-    db_obj.name = name
     db.commit()
     db.refresh(db_obj)
     return db_obj
