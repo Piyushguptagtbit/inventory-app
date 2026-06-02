@@ -37,7 +37,7 @@ class OrderItem(BaseModel):
     quantity: int
     unit_price: float
     class Config:
-        from_attributes = True
+        orm_mode = True
 
 class OrderCreate(BaseModel):
     customer_id: int
