@@ -1,15 +1,15 @@
 # Inventory & Order Management System
 
-A full-stack application built with **FastAPI**, **React**, **PostgreSQL**, and **Docker**.
+A full-stack application built with FastAPI, React, PostgreSQL, and Docker.
 
 ## Features
-- ✅ Product management with unique SKUs
-- ✅ Customer management with unique emails
-- ✅ Order creation with automatic stock reduction
-- ✅ Insufficient stock validation
-- ✅ Responsive React UI
-- ✅ Dockerized with Docker Compose
-- ✅ Environment variable configuration
+-  Product management with unique SKUs
+-  Customer management with unique emails
+-  Order creation with automatic stock reduction
+-  Insufficient stock validation
+-  Responsive React UI
+-  Dockerized with Docker Compose
+-  Environment variable configuration
 
 ## Tech Stack
 | Layer | Technology |
@@ -46,57 +46,24 @@ inventory-app/
 └── .env.example
 ```
 
-## Local Setup
-
-### Prerequisites
-- Docker & Docker Compose
-- Git
-
-### Run locally
-```bash
-git clone <your-repo-url>
-cd inventory-app
-cp .env.example .env
-# Edit .env with your values
-docker compose up --build
-```
 
 - Frontend: http://localhost:3000
 - Backend API: http://localhost:8000
 - API Docs: http://localhost:8000/docs
 
-## Deployment Guide
+Deployment Guide
 
-### Backend – Deploy to Render (Free)
-1. Go to https://render.com → New → Web Service
-2. Connect your GitHub repo
-3. Settings:
-   - Root Directory: `backend`
-   - Build Command: `pip install -r requirements.txt`
-   - Start Command: `uvicorn main:app --host 0.0.0.0 --port $PORT`
-4. Add environment variable: `DATABASE_URL` (from your PostgreSQL provider)
-5. For PostgreSQL, use Render's free PostgreSQL or https://neon.tech
+Backend – Deploy to Render
 
-### Frontend – Deploy to Vercel (Free)
-1. Go to https://vercel.com → New Project
-2. Import your GitHub repo
-3. Settings:
-   - Root Directory: `frontend`
-   - Build Command: `npm run build`
-   - Output Directory: `build`
-4. Add environment variable:
-   - `REACT_APP_API_URL` = your Render backend URL (e.g. https://your-api.onrender.com)
+https://inventory-backend-w6a7.onrender.com/docs
 
-### Docker Hub (for Docker image link)
-```bash
-# Build and push backend image
-docker build -t yourdockerhubusername/inventory-backend:latest ./backend
-docker push yourdockerhubusername/inventory-backend:latest
+Frontend – Deploy to Vercel
 
-# Build and push frontend image
-docker build -t yourdockerhubusername/inventory-frontend:latest ./frontend
-docker push yourdockerhubusername/inventory-frontend:latest
-```
+inventory-app-ce31.vercel.app
+
+ Docker Hub (for Docker image link)
+https://hub.docker.com/repository/docker/piyushgupta12082002/inventory-backend/general
+
 
 ## API Endpoints
 | Method | Path | Description |
@@ -119,3 +86,6 @@ docker push yourdockerhubusername/inventory-frontend:latest
 - Customer emails must be unique
 - Orders automatically reduce product stock
 - Orders fail if stock is insufficient
+
+THANK YOU FOR READING THIS LONG
+piyushguptagtbit
