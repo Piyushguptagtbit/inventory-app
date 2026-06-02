@@ -1,31 +1,40 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel
 from typing import List, Optional
 from datetime import datetime
 
-class ProductCreate(BaseModel):
-    name: str
+
+class ProductBase(BaseModel):
     sku: str
-    description: Optional[str] = ""
+    description: Optional[str]
     price: float
-    stock: int = 0
+    stock: int
 
-class Product(ProductCreate):
+class ProductCreate(ProductBase):
+    pass
+
+class Product(ProductBase):
     id: int
-    created_at: datetime
-    class Config:
-        from_attributes = True
-
-class CustomerCreate(BaseModel):
     name: str
-    email: str
-    phone: Optional[str] = ""
-    address: Optional[str] = ""
-
-class Customer(CustomerCreate):
-    id: int
     created_at: datetime
     class Config:
-        from_attributes = True
+        orm_mode = True
+
+
+class CustomerBase(BaseModel):
+    email: str
+    phone: Optional[str]
+    address: Optional[str]
+
+class CustomerCreate(CustomerBase):
+    pass
+
+class Customer(CustomerBase):
+    id: int
+    name: str
+    created_at: datetime
+    class Config:
+        orm_mode = True
+
 
 class OrderItemCreate(BaseModel):
     product_id: int
@@ -51,4 +60,4 @@ class Order(BaseModel):
     created_at: datetime
     items: List[OrderItem] = []
     class Config:
-        from_attributes = True
+        orm_mode = True
